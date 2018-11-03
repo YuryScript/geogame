@@ -1,0 +1,50 @@
+﻿/* Set the size of the div element that contains the map */
+/* Always set the map height explicitly to define the size of the div
+* element that contains the map. */
+#map {
+	height: 100%;
+}
+/* Optional: Makes the sample page fill the window. */
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+.gm-style .controls {
+	font-size: 34px;  /* this adjusts the size of all the controls */
+	background-color: white;
+	box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+	box-sizing: border-box;
+	border-radius: 2px;
+	cursor: pointer;
+	font-weight: 300;
+	height: 1em;
+	margin: 6px;
+	text-align: center;
+	user-select: none;
+	padding: 2px;
+	width: 1em;
+}
+
+.gm-style .controls button {
+	border: 0;
+	background-color: white;
+	color: rgba(0, 0, 0, 0.6);
+}
+
+.gm-style .controls button:hover {
+	color: rgba(0, 0, 0, 0.9);
+}
+
+.gm-style .controls.zoom-control {
+	display: flex;
+	flex-direction: column;
+	height: auto;
+}
+
+.gm-style .controls.zoom-control button {
+	font: 0.85em 'Open Sans' /*'Doubletwo Studios - XXIICentarRegular.otf'*/;
+	margin: 1px;
+	padding: 0;
+}
