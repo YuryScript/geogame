@@ -4,6 +4,7 @@
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
+	font-family: 'Open Sans', sans-serif;
 }
 
 main {
@@ -23,8 +24,10 @@ main {
 #logo {
 	margin-top: 10vh;
 	text-align: center;
-	font-size: 90px;
+	font-size: 100px;
 	color: #00a2e8;
+	font-family: 'Yanone Kaffeesatz', sans-serif;
+	font-variant: small-caps;
 }
 
 #description {
@@ -45,6 +48,8 @@ main {
 	border: none;
 	background: #00a2e8;
 	border-radius: 80px;
+	color: #fff;
+	font-weight: bold;
 }
 
 #map {
@@ -74,17 +79,17 @@ main {
 	height: 100%;
 }
 /* гм фулскрин */
-.gm-fullscreen-control {
+/*.gm-fullscreen-control {
 	display: none;
-}
+}*/
 /* гм стритвью */
-.gm-svpc {
+/*.gm-svpc {
 	display: none;
-}
+}*/
 /* гм тип карты */
-.gm-style-mtc {
+/*.gm-style-mtc {
 	display: none;
-}
+}*/
 /* гм масштаб */
 /*.gm-bundled-control-on-bottom {
 	display: none;

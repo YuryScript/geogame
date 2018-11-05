@@ -115,36 +115,76 @@ window.onload = () => {
 	$('#startGame').on('click', startGame);
 };
 
+var sv;
 var map;
 var panorama;
+var storage = {
+	lat: 0,
+	lng: 0
+};
 function initMap() {
+	sv = new google.maps.StreetViewService();
+	
 	map = new google.maps.Map(document.getElementById('map'), {
 		center: {
 			lat: 0,
 			lng: 0
 		},
-		zoom: 2
+		zoom: 2,
+		fullscreenControl: false,
+		streetViewControl: false,
+		zoomControl: false,
+		mapTypeControl: false,
 	});
+	
 	panorama = new google.maps.StreetViewPanorama(document.getElementById('panorama'), {
 		position: {
-			lat: 37.869260,
-			lng: -122.254811
+			lat: 0,
+			lng: 0
 		},
 		pov: {
 			heading: 165,
 			pitch: 0
 		},
-		zoom: 1
+		addressControl: false,
+		linksControl: false,
+		showRoadLabels: false,
+		fullscreenControl: false,
 	});
 }
 
 function startGame() {
-	//$('#ui').hide();
 	$('#logo').hide();
 	$('#description').hide();
 	$('#start-button').hide();
 	$('#particles').hide();
-	$('#map').hide();
-	$('.gm-bundled-control-on-bottom').show();
 	$('#panorama').show();
+	
+	
+	map.zoomControl = true;
+	
+	generateRandomPoint();
+}
+
+function generateRandomPoint(){
+	storage.lat = randomBetween(-90, 90);
+	storage.lng = randomBetween(-180, 180);
+	sv.getPanoramaByLocation(new google.maps.LatLng(storage.lat, storage.lng), 500, processSVData);
+}
+
+function processSVData(data, status) {
+	if (status === 'OK') {
+		panorama.setPano(data.location.pano);
+		panorama.setPov({
+			heading: 270,
+			pitch: 0
+		});
+		panorama.setVisible(true);
+	} else {
+		generateRandomPoint();
+	}
+}
+
+function randomBetween(min,max) {
+    return Math.random() * (max - min + 1 ) + min;
 }
