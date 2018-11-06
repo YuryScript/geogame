@@ -121,11 +121,10 @@ var sv;
 var map;
 var panorama;
 var marker = null;
+var answerMarker = null;
 var mapSwicther = 0;
-var storage = {
-	lat: 0,
-	lng: 0
-};
+var storage;
+var listener;
 function initMap() {
 	sv = new google.maps.StreetViewService();
 	
@@ -151,14 +150,18 @@ function initMap() {
 			pitch: 0
 		},
 		addressControl: false,
-		linksControl: false,
+		linksControl: true,
 		showRoadLabels: false,
 		fullscreenControl: false,
 	});
 	
-	google.maps.event.addListener(map, 'click', function(event) {
+	listener = google.maps.event.addListener(map, 'click', function(event) {
 		makeAnswer(event.latLng, map);
 	});
+}
+
+function mapOnClick(event) {
+	makeAnswer(event.latLng, map);
 }
 
 function startGame() {
@@ -184,13 +187,14 @@ function startGame() {
 }
 
 function generateRandomPoint(){
-	storage.lat = randomBetween(-90, 90);
-	storage.lng = randomBetween(-180, 180);
-	sv.getPanoramaByLocation(new google.maps.LatLng(storage.lat, storage.lng), 500, processSVData);
+	storage = new google.maps.LatLng(randomBetween(-90, 90), randomBetween(-180, 180));
+	sv.getPanoramaByLocation(new google.maps.LatLng(storage.lat(), storage.lng()), 500, processSVData);
 }
 
 function processSVData(data, status) {
 	if (status === 'OK') {
+		console.log(data.location);
+		storage = data.location.latLng;
 		panorama.setPano(data.location.pano);
 		panorama.setPov({
 			heading: 270,
@@ -216,9 +220,43 @@ function makeAnswer(location, map){
 }
 
 function answer(){
+	//$('#switch').hide();
+	$('#answer').hide();
+	
+	$('#endGame').show();
+	$('#newGame').show();
+	
+	listener.remove();
+	
 	var markerPosition = marker.getPosition();
+	
 	console.log(markerPosition.lat(), markerPosition.lng());
-	console.log(storage.lat, storage.lng);
+	console.log(storage.lat(), storage.lng());
+	console.log(google.maps.geometry.spherical.computeDistanceBetween(markerPosition, storage) / 1000 + 'km');
+	
+	$('#endGame').text('Ваш ответ в ' + (google.maps.geometry.spherical.computeDistanceBetween(markerPosition, storage) / 1000).toFixed(3) + ' километрах от текущей локации');
+	
+	answerMarker = new google.maps.Marker({
+		position: storage,
+		title: 'Загаданое место',
+		map: map
+	});
+	
+	$('#newGame').on('click', newGame);
+}
+
+function newGame(){
+	$('#endGame').hide();
+	$('#newGame').hide();
+	marker.setMap(null);
+	marker = null;
+	answerMarker.setMap(null);
+	answerMarker = null;
+	toggleMap();
+	listener = google.maps.event.addListener(map, 'click', function(event) {
+		makeAnswer(event.latLng, map);
+	});
+	startGame();
 }
 
 function toggleMap(){

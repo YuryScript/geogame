@@ -109,6 +109,32 @@ main {
 	height: 100%;
 }
 
+#endGame {
+	position: fixed;
+	right: 6vw;
+	bottom: 10vh;
+	padding: 1vh 1vw 1vh 1vw;
+	font-size: 20px;
+	background: #fff;
+	border-radius: 80px;
+	color: #000;
+	font-weight: bold;
+	z-index: 60;
+}
+
+#newGame{
+	position: fixed;
+	right: 6vw;
+	bottom: 3vh;
+	padding: 1vh 1vw 1vh 1vw;
+	font-size: 20px;
+	background: #00a2e8;
+	border-radius: 80px;
+	color: #fff;
+	font-weight: bold;
+	z-index: 60;
+}
+
 .button {
 	box-shadow: 1px 2px 1px #000;
 }
