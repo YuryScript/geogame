@@ -74,7 +74,7 @@ window.onload = () => {
 		"detect_on": "window",
 		"events": {
 			"onhover": {
-				"enable": true,
+				"enable": false,
 				"mode": "grab"
 			},
 			"onclick": {
@@ -114,12 +114,14 @@ window.onload = () => {
 	
 	$('#startGame').on('click', startGame);
 	$('#switch').on('click', toggleMap);
+	$('#answer').on('click', answer);
 };
 
 var sv;
 var map;
 var panorama;
-var mapSwicther = 1;
+var marker = null;
+var mapSwicther = 0;
 var storage = {
 	lat: 0,
 	lng: 0
@@ -153,9 +155,14 @@ function initMap() {
 		showRoadLabels: false,
 		fullscreenControl: false,
 	});
+	
+	google.maps.event.addListener(map, 'click', function(event) {
+		makeAnswer(event.latLng, map);
+	});
 }
 
 function startGame() {
+	$('#ui').hide();
 	$('#logo').hide();
 	$('#description').hide();
 	$('#start-button').hide();
@@ -193,6 +200,25 @@ function processSVData(data, status) {
 	} else {
 		generateRandomPoint();
 	}
+}
+
+function makeAnswer(location, map){
+	if(!marker){
+		marker = new google.maps.Marker({
+			position: location,
+			title: 'Ваш ответ',
+			map: map
+		});
+	}
+	else{
+		marker.setPosition(location);
+	}
+}
+
+function answer(){
+	var markerPosition = marker.getPosition();
+	console.log(markerPosition.lat(), markerPosition.lng());
+	console.log(storage.lat, storage.lng);
 }
 
 function toggleMap(){

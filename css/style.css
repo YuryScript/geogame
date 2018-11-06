@@ -19,6 +19,8 @@ main {
 	left: 0;
 	top: 0;
 	z-index: 80;
+	width: 100vw;
+	height: 100vh;
 }
 
 #logo {
@@ -28,6 +30,7 @@ main {
 	color: #00a2e8;
 	font-family: 'Yanone Kaffeesatz', sans-serif;
 	font-variant: small-caps;
+	text-shadow: 1px 2px 1px #000;
 }
 
 #description {
@@ -105,6 +108,11 @@ main {
 	width: 100%;
 	height: 100%;
 }
+
+.button {
+	box-shadow: 1px 2px 1px #000;
+}
+
 /* гм фулскрин */
 /*.gm-fullscreen-control {
 	display: none;
