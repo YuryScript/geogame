@@ -58,7 +58,8 @@ main {
 	top: 0;
 	width: 100vw;
 	height: 100vh;
-	z-index: 10;
+	z-index: 20;
+	cursor: crosshair;
 }
 
 #panorama {
@@ -68,6 +69,32 @@ main {
 	width: 100vw;
 	height: 100vh;
 	z-index: 10;
+}
+
+#switch {
+	position: fixed;
+	left: 1vw;
+	top: 1vh;
+	padding: 1vh 1vw 1vh 1vw;
+	font-size: 20px;
+	background: #00a2e8;
+	border-radius: 80px;
+	color: #fff;
+	font-weight: bold;
+	z-index: 60;
+}
+
+#answer {
+	position: fixed;
+	right: 1vw;
+	top: 1vh;
+	padding: 1vh 1vw 1vh 1vw;
+	font-size: 20px;
+	background: #00a2e8;
+	border-radius: 80px;
+	color: #fff;
+	font-weight: bold;
+	z-index: 60;
 }
 
 #particles {

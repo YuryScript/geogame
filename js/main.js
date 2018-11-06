@@ -113,11 +113,13 @@ window.onload = () => {
 	});
 	
 	$('#startGame').on('click', startGame);
+	$('#switch').on('click', toggleMap);
 };
 
 var sv;
 var map;
 var panorama;
+var mapSwicther = 1;
 var storage = {
 	lat: 0,
 	lng: 0
@@ -158,8 +160,16 @@ function startGame() {
 	$('#description').hide();
 	$('#start-button').hide();
 	$('#particles').hide();
-	$('#panorama').show();
 	
+	$('#panorama').show();
+	$('#switch').show();
+	
+	$('#panorama').css({
+		'z-index': 20
+	});
+	$('#map').css({
+		'z-index': 10
+	});
 	
 	map.zoomControl = true;
 	
@@ -182,6 +192,31 @@ function processSVData(data, status) {
 		panorama.setVisible(true);
 	} else {
 		generateRandomPoint();
+	}
+}
+
+function toggleMap(){
+	if(mapSwicther){
+		mapSwicther = 0;
+		$('#switch').text('Карта');
+		$('#panorama').css({
+			'z-index': 20
+		});
+		$('#map').css({
+			'z-index': 10
+		});
+		$('#answer').hide();
+	}
+	else{
+		mapSwicther = 1;
+		$('#switch').text('Панорама');
+		$('#panorama').css({
+			'z-index': 10
+		});
+		$('#map').css({
+			'z-index': 20
+		});
+		$('#answer').show();
 	}
 }
 
