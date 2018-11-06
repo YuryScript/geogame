@@ -11,7 +11,7 @@ app.set("view engine", "handlebars");
 
 app.use(express.static("."));
 
-const apiKey = process.env.GOOGLE_MAP_API_KEY;
+const apiKey = process.env.GOOGLE_MAP_API_KEY || "";
 
 app.get("/", function(req, res, next) {
   res.render("index", {
